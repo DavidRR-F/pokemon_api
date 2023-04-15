@@ -32,3 +32,9 @@ jobs:
         file: ./Dockerfile
         push: true
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/pokemon_api:latest
+
+  deploy:
+    runs-on: shagbaggins-desktop
+    needs: build
+    
+

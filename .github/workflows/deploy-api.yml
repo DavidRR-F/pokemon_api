@@ -34,7 +34,7 @@ jobs:
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/pokemon_api:latest
 
   deploy:
-    runs-on: shagbaggins-desktop
+    runs-on: self-hosted
     needs: build
     steps:
     - name: Checkout repository

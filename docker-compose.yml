@@ -1,9 +1,22 @@
 version: '3.9'
 
 services:
+  db:
+    image: davidrrf/pokebase:latest
+    container_name: db
+
+  dl:
+    image: davidrrf/pokeloader:latest
+    container_name: dl
+    depends_on:
+      - db
+
   api:
-    image: ${{ secrets.DOCKER_HUB_USERNAME }}/pokemon_api:latest
+    image: davidrrf/pokemon_api:latest
     container_name: api
+    depends_on:
+      - db
+      - dl
 
   nginx:
     image: nginx:latest
@@ -14,3 +27,5 @@ services:
       - '80:80'
     depends_on:
       - api
+      - db
+      - dl

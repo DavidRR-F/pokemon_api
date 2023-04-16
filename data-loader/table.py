@@ -61,5 +61,3 @@ class Ability(Base):
     pokemon_id = Column(Integer, ForeignKey('pokemon.id'))
     pokemon = relationship("Pokemon", back_populates="abilities")
     
-    #psql -h host -p port -U user -W -d database
-    

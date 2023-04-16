@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   api:
-    image: ${{ secrets.DOCKER_HUB_USERNAME }}/pokemon_api:latest
+    image: davidrrf/pokemon_api:latest
     container_name: api
 
   nginx:

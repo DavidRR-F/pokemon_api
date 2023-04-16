@@ -7,33 +7,28 @@ from table import Ability, Pokemon
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-
-
-def image_to_base64(image_path: str) -> str:
-    with open(image_path, 'rb') as image_file:
-        return base64.b64encode(image_file.read()).decode('utf-8')
     
-def get_image_base64(name: str) -> str:
-    if not name == "Type: Null":
-        formatted_name = format_name(name)
-        return f"{formatted_name}.png"
+# def get_image(name: str) -> str:
+#     if not name == "Type: Null":
+#         formatted_name = format_name(name)
+#         return f"{formatted_name}.png"
 
-def format_name(name: str) -> str:
-    formatted_name = name.replace("'", "").replace(" ", "").replace(".", "-").replace("é", "e").lower()
-    match formatted_name:
-        case _ if "♀" in formatted_name:
-            return formatted_name[:-1] + "-f"
-        case _ if "♂" in formatted_name:
-            return formatted_name[:-1] + "-m"
-        case "mimejr-":
-            return formatted_name[:-3] + "-jr"
-        case _ if "tapu" in formatted_name:
-            return formatted_name[:4] + "-" + formatted_name[4:]
-        case _:
-            for image_name in IMG_NAMES:
-                if image_name.startswith(formatted_name):
-                    return image_name
-            return formatted_name
+# def format_name(name: str) -> str:
+#     formatted_name = name.replace("'", "").replace(" ", "").replace(".", "-").replace("é", "e").lower()
+#     match formatted_name:
+#         case _ if "♀" in formatted_name:
+#             return formatted_name[:-1] + "-f"
+#         case _ if "♂" in formatted_name:
+#             return formatted_name[:-1] + "-m"
+#         case "mimejr-":
+#             return formatted_name[:-3] + "-jr"
+#         case _ if "tapu" in formatted_name:
+#             return formatted_name[:4] + "-" + formatted_name[4:]
+#         case _:
+#             for image_name in IMG_NAMES:
+#                 if image_name.startswith(formatted_name):
+#                     return image_name
+#             return formatted_name
 
 def get_abilities(abilities):
     ability_objects = []
@@ -58,8 +53,8 @@ def create_db():
     session = Session()
     
     data = pd.read_csv(CSV_FILE)
-    data['pokemon_image'] = data['name'].apply(get_image_base64)
-    #print(data)
+    ##data['pokemon_image'] = data['name'].apply(get_image)
+    ##data.to_csv('pokemon-info', index=False)
     for _, row in data.iterrows():
         pokemon_data = row.to_dict()
         session.add(add_pokemon(pokemon_data))

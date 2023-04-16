@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM python:3.10
 
 WORKDIR /app
 
@@ -12,6 +12,6 @@ COPY table.py .
 
 COPY constants.py .
 
-COPY pokemon-data .
+COPY pokemon-info.csv .
 
 CMD ["python", "main.py"]

@@ -1,9 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from tortoise.contrib.fastapi import register_tortoise
-
 from model import Pokemon
 
-# start api: uvicorn main:app --reload 
 app = FastAPI()
 
 register_tortoise(

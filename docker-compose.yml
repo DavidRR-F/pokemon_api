@@ -5,18 +5,11 @@ services:
     image: davidrrf/pokebase:latest
     container_name: db
 
-  dl:
-    image: davidrrf/pokeloader:latest
-    container_name: dl
-    depends_on:
-      - db
-
   api:
     image: davidrrf/pokemon_api:latest
     container_name: api
     depends_on:
       - db
-      - dl
 
   nginx:
     image: nginx:latest
@@ -28,4 +21,3 @@ services:
     depends_on:
       - api
       - db
-      - dl

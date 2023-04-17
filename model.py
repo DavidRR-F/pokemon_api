@@ -3,6 +3,7 @@ from tortoise import fields, models
 class Pokemon(models.Model):
     id = fields.IntField(pk=True)
     name = fields.CharField(255)
+    abilities = fields.JSONField()
     japanese_name = fields.CharField(255, null=True)
     pokedex_number = fields.IntField(null=True)
     percentage_male = fields.FloatField(null=True)
@@ -43,10 +44,3 @@ class Pokemon(models.Model):
     against_steel = fields.FloatField(null=True)
     against_water = fields.FloatField(null=True)
     pokemon_image = fields.CharField(1000, null=True)
-
-    abilities = fields.ReverseRelation["Ability"]
-
-class Ability(models.Model):
-    id = fields.IntField(pk=True)
-    name = fields.CharField(255)
-    pokemon = fields.ForeignKeyField("models.Pokemon", related_name="abilities", on_delete=fields.CASCADE)

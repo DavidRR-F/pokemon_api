@@ -1,5 +1,6 @@
 CREATE TABLE pokemon (
     id SERIAL PRIMARY KEY,
+    abilities VARCHAR(255)[],
     name VARCHAR(255) NOT NULL,
     japanese_name VARCHAR(255),
     pokedex_number INTEGER,
@@ -43,9 +44,5 @@ CREATE TABLE pokemon (
     pokemon_image VARCHAR(255)
 );
 
-CREATE TABLE ability (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    pokemon_id INTEGER,
-    FOREIGN KEY (pokemon_id) REFERENCES pokemon (id) ON DELETE CASCADE
-);
+COPY pokemon (
+    abilities,against_bug,against_dark,against_dragon,against_electric,against_fairy,against_fight,against_fire,against_flying,against_ghost,against_grass,against_ground,against_ice,against_normal,against_poison,against_psychic,against_rock,against_steel,against_water,attack,base_egg_steps,base_happiness,base_total,capture_rate,classfication,defense,experience_growth,height_m,hp,japanese_name,name,percentage_male,pokedex_number,sp_attack,sp_defense,speed,type1,type2,weight_kg,generation,is_legendary,pokemon_image) FROM '/csv/pokemon.csv' DELIMITER ',' CSV HEADER;

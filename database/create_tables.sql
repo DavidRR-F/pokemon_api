@@ -1,3 +1,5 @@
+CREATE EXTENSION vector;
+
 CREATE TABLE pokemon (
     id SERIAL PRIMARY KEY,
     abilities VARCHAR(255)[],

@@ -14,9 +14,9 @@ $ cd database
 $ docker build -t pokebase .
 $ docker run -p 5433:5432
 ```
-- In the main.py update the database connection url as follows
+- In the api/database.py update the database connection url as follows
 
-![image](https://user-images.githubusercontent.com/99210748/232352630-b5a6c1bf-31a8-4202-b468-54e59bddae59.png)
+![image](https://user-images.githubusercontent.com/99210748/232644577-b21bcc4a-baab-4a14-af79-fa745c0e075a.png)
 
 - Run the API
 ```

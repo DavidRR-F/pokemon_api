@@ -21,5 +21,5 @@ $ docker run -p 5433:5432
 - Run the API
 ```
 $ pip install -r requirements.txt
-$ uvicorn main:app --reload 
+$ uvicorn api.main:app --reload 
 ```

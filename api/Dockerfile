@@ -6,7 +6,7 @@ RUN mkdir /app/pokemon_api
 
 COPY api/requirements.txt .
 
-COPY api/pokemon_api /pokemon_api/
+COPY api/pokemon_api /app/pokemon_api/
 
 RUN pip install --no-cache-dir -r requirements.txt
 

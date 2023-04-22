@@ -1,8 +1,9 @@
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
-from typing import List
-from . import crud, models,schemas
-from .database import SessionLocal, engine
+import pokemon_api.crud as crud
+import pokemon_api.models as models
+import pokemon_api.schemas as schemas
+from pokemon_api.database import SessionLocal, engine
 from fastapi.middleware.cors import CORSMiddleware
 
 models.Base.metadata.create_all(bind=engine)

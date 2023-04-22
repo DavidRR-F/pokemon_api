@@ -9,8 +9,8 @@ httptools==0.5.0
 idna==3.4
 numpy==1.24.2
 pgvector==0.1.6
+psycopg2==2.9.6
 pydantic==1.10.7
-pydentic==0.0.1.dev3
 python-dotenv==1.0.0
 python-stdnum==1.18
 PyYAML==6.0

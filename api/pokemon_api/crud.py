@@ -1,10 +1,11 @@
 from typing import List, Tuple
 from sqlalchemy.orm import Session
 from sqlalchemy import select, func
-from api.models import Pokemon as PokemonModel
-from api.schemas import FullPokemon, Pokemon, SimilarPokemon
 
-from . import models
+from pokemon_api.schemas import FullPokemon, Pokemon, SimilarPokemon
+from pokemon_api.models import Pokemon as PokemonModel
+
+import pokemon_api.models as models
 
 def get_pokemon(db: Session, pokemon_id: int):
     return db.query(models.Pokemon).filter(models.Pokemon.id == pokemon_id).first()

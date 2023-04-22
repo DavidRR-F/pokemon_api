@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, Float, Boolean
 from sqlalchemy.dialects.postgresql import JSON
 from pgvector.sqlalchemy import Vector
 
-from .database import Base
+from pokemon_api.database import Base
 
 class Pokemon(Base):
     __tablename__ = 'pokemon'

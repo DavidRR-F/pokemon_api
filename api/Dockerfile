@@ -2,7 +2,7 @@ FROM python:3.10
 
 WORKDIR /app
 
-RUN mkdir app/pokemon_api
+RUN mkdir /app/pokemon_api
 
 COPY api/requirements.txt .
 

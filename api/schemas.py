@@ -45,6 +45,13 @@ class Pokemon(BaseModel):
     against_steel: Optional[float]
     against_water: Optional[float]
     pokemon_image: Optional[str]
-
+    image_vector: Optional[list[float]]
+    class Config:
+        orm_mode = True
+        
+class SimilarPokemon(BaseModel):
+    id: int
+    name: str
+    pokemon_image: Optional[str]
     class Config:
         orm_mode = True

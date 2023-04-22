@@ -1,6 +1,6 @@
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
-
+from typing import List
 from . import crud, models,schemas
 from .database import SessionLocal, engine
 
@@ -30,6 +30,13 @@ def get_all_pokemon(skip: int = 0, limit: int = 100, db: Session = Depends(get_d
 @app.get("/pokemon/{pokemon_id}", response_model=schemas.Pokemon)
 def get_pokemon(pokemon_id: int, db: Session = Depends(get_db)):
     pokemon = crud.get_pokemon(db, pokemon_id=pokemon_id)
+    if not pokemon:
+        raise HTTPException(status_code=404, detail="Pokemon not found")
+    return pokemon
+
+@app.get("/pokemon/{pokemon_id}/similar", response_model=List[schemas.SimilarPokemon])
+def get_pokemon(pokemon_id: int, db: Session = Depends(get_db)):
+    pokemon = crud.get_nearest(db, pokemon_id)
     if not pokemon:
         raise HTTPException(status_code=404, detail="Pokemon not found")
     return pokemon

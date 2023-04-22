@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, Float, Boolean
 from sqlalchemy.dialects.postgresql import JSON
+from pgvector.sqlalchemy import Vector
 
 from .database import Base
 
@@ -49,3 +50,4 @@ class Pokemon(Base):
     against_steel = Column(Float, nullable=True)
     against_water = Column(Float, nullable=True)
     pokemon_image = Column(String(1000), nullable=True)
+    image_vector = Column(Vector(2048))

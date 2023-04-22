@@ -17,16 +17,17 @@ RUN apt-get update \
         postgresql-server-dev-$PG_MAJOR \
     && cd /tmp \
     && git clone --branch v${PGVECTOR_VERSION} https://github.com/pgvector/pgvector.git \
-    && cd pgvector \
-    && make && make install \
-    && cd / \
-    && apt-get purge -y --auto-remove \
-        build-essential \
-        ca-certificates \
-        git \
-        postgresql-server-dev-$PG_MAJOR \
-    && rm -rf /tmp/pgvector \
-    && rm -rf /var/lib/apt/lists/*
+    && cd pgvector && \
+    make clean && \
+    make OPTFLAGS="" && \
+    make install && \
+    mkdir /usr/share/doc/pgvector && \
+    cp LICENSE README.md /usr/share/doc/pgvector && \
+    rm -r /tmp/pgvector && \
+    apt-get remove -y build-essential postgresql-server-dev-$PG_MAJOR && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/*
 
-COPY pokemon.csv /csv/
+RUN echo "CREATE EXTENSION vector;" > /docker-entrypoint-initdb.d/anable_pg_vector.sql
+COPY pokemon-info.csv /csv/
 COPY create_tables.sql /docker-entrypoint-initdb.d/

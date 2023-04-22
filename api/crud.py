@@ -1,7 +1,8 @@
+from typing import List, Tuple
 from sqlalchemy.orm import Session
 from sqlalchemy import select, func
 from api.models import Pokemon as PokemonModel
-from api.schemas import Pokemon
+from api.schemas import FullPokemon, Pokemon, SimilarPokemon
 
 from . import models
 
@@ -23,3 +24,8 @@ def get_nearest(db: Session, pokemon_id: int):
             )
         ).limit(12)
     )).fetchall()
+    
+def get_pokemon_and_nearest(db: Session, pokemon_id: int) -> Tuple[Pokemon, List[SimilarPokemon]]:
+    pokemon = get_pokemon(db, pokemon_id)
+    nearest = get_nearest(db, pokemon_id)
+    return FullPokemon(pokemon=pokemon, nearest_pokemon=nearest)

@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM python:3.11
 
 WORKDIR /app
 
@@ -8,7 +8,13 @@ RUN pip install -r requirements.txt
 
 COPY main.py .
 
-COPY model.py .
+COPY models.py .
+
+COPY crud.py .
+
+COPY database.py .
+
+COPY schemas.py .
 
 EXPOSE 8000
 

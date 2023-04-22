@@ -3,10 +3,19 @@ from sqlalchemy.orm import Session
 from typing import List
 from . import crud, models,schemas
 from .database import SessionLocal, engine
+from fastapi.middleware.cors import CORSMiddleware
 
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Change this to the list of allowed origins or a specific origin
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 def get_db():
     db = SessionLocal()
@@ -34,9 +43,9 @@ def get_pokemon(pokemon_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Pokemon not found")
     return pokemon
 
-@app.get("/pokemon/{pokemon_id}/similar", response_model=List[schemas.SimilarPokemon])
+@app.get("/pokemon/{pokemon_id}/similar", response_model=schemas.FullPokemon)
 def get_pokemon(pokemon_id: int, db: Session = Depends(get_db)):
-    pokemon = crud.get_nearest(db, pokemon_id)
+    pokemon = crud.get_pokemon_and_nearest(db, pokemon_id)
     if not pokemon:
         raise HTTPException(status_code=404, detail="Pokemon not found")
     return pokemon

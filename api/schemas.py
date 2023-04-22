@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import List, Optional
 
 class Pokemon(BaseModel):
     id: int
@@ -45,7 +45,6 @@ class Pokemon(BaseModel):
     against_steel: Optional[float]
     against_water: Optional[float]
     pokemon_image: Optional[str]
-    image_vector: Optional[list[float]]
     class Config:
         orm_mode = True
         
@@ -53,5 +52,11 @@ class SimilarPokemon(BaseModel):
     id: int
     name: str
     pokemon_image: Optional[str]
+    class Config:
+        orm_mode = True
+        
+class FullPokemon(BaseModel):
+    pokemon: Pokemon
+    nearest_pokemon: List[SimilarPokemon]
     class Config:
         orm_mode = True

@@ -55,6 +55,15 @@ class SimilarPokemon(BaseModel):
     class Config:
         orm_mode = True
         
+class SearchPokemon(BaseModel):
+    id: int
+    name: str
+    type1: str
+    type2: Optional[str]
+    pokemon_image: Optional[str]
+    class Config:
+        orm_mode = True
+        
 class FullPokemon(BaseModel):
     pokemon: Pokemon
     nearest_pokemon: List[SimilarPokemon]

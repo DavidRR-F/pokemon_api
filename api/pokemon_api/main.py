@@ -25,14 +25,9 @@ def get_db():
     finally:
         db.close()
 
-
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
-
-@app.get("/pokemon", response_model=list[schemas.Pokemon])
-def get_all_pokemon(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    pokemon = crud.get_all_pokemon(db, skip=skip, limit=limit)
+@app.get("/pokemon", response_model=list[schemas.SearchPokemon])
+def get_all_pokemon(db: Session = Depends(get_db)):
+    pokemon = crud.get_all_pokemon(db)
     if not pokemon:
         raise HTTPException(status_code=404, detail="Pokemon not found")
     return pokemon

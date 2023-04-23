@@ -10,8 +10,11 @@ import pokemon_api.models as models
 def get_pokemon(db: Session, pokemon_id: int):
     return db.query(models.Pokemon).filter(models.Pokemon.id == pokemon_id).first()
 
-def get_all_pokemon(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Pokemon).offset(skip).limit(limit).all()
+def get_all_pokemon(db: Session):
+    return db.execute((
+        select(PokemonModel.id, PokemonModel.name, PokemonModel.type1, PokemonModel.type2, PokemonModel.pokemon_image)
+        .order_by(PokemonModel.name)
+    )).fetchall()
 
 def get_nearest(db: Session, pokemon_id: int):
     return db.execute((
@@ -23,7 +26,7 @@ def get_nearest(db: Session, pokemon_id: int):
                     db.query(PokemonModel.image_vector).filter(PokemonModel.id == pokemon_id).scalar() 
                 )
             )
-        ).limit(12)
+        ).limit(6)
     )).fetchall()
     
 def get_pokemon_and_nearest(db: Session, pokemon_id: int) -> Tuple[Pokemon, List[SimilarPokemon]]:
